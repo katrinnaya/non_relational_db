@@ -1,0 +1,181 @@
+•	Найти количество объектов, находящихся в Лондоне.
+db.listingsAndReviews.countDocuments({ "address.market": "London" })
+0
+•	Найти количество объектов с ценой выше $200.
+db.listingsAndReviews.countDocuments({ "price": { $gt: 200 } })
+1842
+•	Найти объект с минимальной ценой.
+db.listingsAndReviews.find().sort({ "price": 1 }).limit(1)
+[
+  {
+    _id: '14758068',
+    listing_url: 'https://www.airbnb.com/rooms/14758068',
+    name: 'Room on spacious appartment',
+    summary: 'My space is close to restaurants and delicious bakeries. It is a big appartment, and there is a cat living there for now, so if you have animals, they are wellcome :)  It is on quiet and safe place and has transports at the door. I can help with any need needed. Bills are included',
+    space: '',
+    description: "My space is close to restaurants and delicious bakeries. It is a big appartment, and there is a cat living there for now, so if you have animals, they are wellcome :)  It is on quiet and safe place and has transports at the door. I can help with any need needed. Bills are included Guests can use the living room, kitchen and bathroom. They are shared and full equipped. I'll be happy to help with transports, interests, to discover Porto city. This place is quite unique. It has old streets and old houses. Stone houses, well preserved, narrow streets... you have to be curious and each walk will bring a discovery. There is a delicious bakery on the apartment street, at 7min walking. They open early, serve meals also and close late. They sell amazing and cheap cakes, there's wifi.  Also there is a big supermarket next to the apartment, sells cheap products and has a big variety. There are parking places, for who have car. There are routes for bicycles, going to the center of Porto and to the",
+    neighborhood_overview: "This place is quite unique. It has old streets and old houses. Stone houses, well preserved, narrow streets... you have to be curious and each walk will bring a discovery. There is a delicious bakery on the apartment street, at 7min walking. They open early, serve meals also and close late. They sell amazing and cheap cakes, there's wifi.  Also there is a big supermarket next to the apartment, sells cheap products and has a big variety.",
+    notes: 'As contas estão incluídas no preço do aluguer.',
+    transit: 'There are parking places, for who have car. There are routes for bicycles, going to the center of Porto and to the center of Gondomar. And there are buses, right in front of the apartment.',
+    access: 'Guests can use the living room, kitchen and bathroom. They are shared and full equipped.',
+    interaction: "I'll be happy to help with transports, interests, to discover Porto city.",
+    house_rules: 'A limpeza do apartamento deve ser feito pelos hóspedes.',
+    property_type: 'Apartment',
+    room_type: 'Private room',
+    bed_type: 'Real Bed',
+    minimum_nights: '30',
+    maximum_nights: '270',
+    cancellation_policy: 'flexible',
+    last_scraped: ISODate('2019-02-16T05:00:00.000Z'),
+    calendar_last_scraped: ISODate('2019-02-16T05:00:00.000Z'),
+    first_review: ISODate('2016-11-18T05:00:00.000Z'),
+    last_review: ISODate('2017-03-07T05:00:00.000Z'),
+    accommodates: 1,
+    bedrooms: 1,
+    beds: 1,
+    number_of_reviews: 2,
+    bathrooms: Decimal128('1.0'),
+    amenities: [
+      'TV',
+      'Wifi',
+      'Kitchen',
+      'Elevator',
+      'Free street parking',
+      'Washer',
+      'Hangers',
+      'Laptop friendly workspace',
+      'translation missing: en.hosting_amenity_49',
+      'translation missing: en.hosting_amenity_50',
+      'Private entrance',
+      'Hot water',
+      'Microwave',
+      'Coffee maker',
+      'Refrigerator',
+      'Dishwasher',
+      'Dishes and silverware',
+      'Cooking basics',
+      'Oven',
+      'Stove',
+      'Patio or balcony',
+      'Garden or backyard',
+      'Long term stays allowed',
+      'Wide hallway clearance',
+      'Wide doorway',
+      'Flat path to front door',
+      'Well-lit path to entrance',
+      'Disabled parking spot',
+      'Wide doorway',
+      'Wide clearance to bed',
+      'Accessible-height bed',
+      'Step-free access',
+      'Wide doorway',
+      'Accessible-height toilet',
+      'Wide entryway',
+      'Host greets you',
+      'Handheld shower head'
+    ],
+    price: Decimal128('9.00'),
+    security_deposit: Decimal128('100.00'),
+    cleaning_fee: Decimal128('0.00'),
+    extra_people: Decimal128('0.00'),
+    guests_included: Decimal128('1'),
+    images: {
+      thumbnail_url: '',
+      medium_url: '',
+      picture_url: 'https://a0.muscache.com/im/pictures/1737a7fa-01a4-4dab-949d-edee9d8a7712.jpg?aki_policy=large',
+      xl_picture_url: ''
+    },
+    host: {
+      host_id: '92014193',
+      host_url: 'https://www.airbnb.com/users/show/92014193',
+      host_name: 'Catarina',
+      host_location: 'PT',
+      host_about: '',
+      host_response_time: 'within a few hours',
+      host_thumbnail_url: 'https://a0.muscache.com/im/pictures/fdb1ce4f-5f10-4d7d-b78e-30cda6c7f5c5.jpg?aki_policy=profile_small',
+      host_picture_url: 'https://a0.muscache.com/im/pictures/fdb1ce4f-5f10-4d7d-b78e-30cda6c7f5c5.jpg?aki_policy=profile_x_medium',
+      host_neighbourhood: '',
+      host_response_rate: 92,
+      host_is_superhost: false,
+      host_has_profile_pic: true,
+      host_identity_verified: false,
+      host_listings_count: 1,
+      host_total_listings_count: 1,
+      host_verifications: [ 'phone', 'reviews' ]
+    },
+    address: {
+      street: 'Valbom, Porto, Portugal',
+      suburb: '',
+      government_area: 'Gondomar (São Cosme), Valbom e Jovim',
+      market: 'Porto',
+      country: 'Portugal',
+      country_code: 'PT',
+      location: {
+        type: 'Point',
+        coordinates: [ -8.557, 41.14586 ],
+        is_location_exact: true
+      }
+    },
+    availability: {
+      availability_30: 0,
+      availability_60: 0,
+      availability_90: 26,
+      availability_365: 301
+    },
+    review_scores: {
+      review_scores_accuracy: 8,
+      review_scores_cleanliness: 10,
+      review_scores_checkin: 10,
+      review_scores_communication: 10,
+      review_scores_location: 8,
+      review_scores_value: 10,
+      review_scores_rating: 100
+    },
+    reviews: [
+      {
+        _id: '114415170',
+        date: ISODate('2016-11-18T05:00:00.000Z'),
+        listing_id: '14758068',
+        reviewer_id: '97650684',
+        reviewer_name: 'Marcel',
+        comments: 'Ich durfte für einen Monat in der Wohnung von der Catarina übernachten und bin absolut zufrieden. \r\n' +
+          'Seit dem ersten Schriftwechsel ist Catarina als eine sehr offene, sympatische und vertrauenswürdige Person aufgetreten, weswegen sie mir sowohl die Anreise erleichtert hat als auch dafür gesorgt hat,das ich mich in der neuen Umgebung wohlfühle. \r\n' +
+          'Von der Ausstattung her ist alles so wie beschrieben. Einzige kleine Abänderung war eine Art Holzwand die zwischen dem eigenen kleinen Wohnbereich und dem Bereich für alle gezogen wurde. Dadurch wurde zwar der Aufenthaltsbereich verdunkelt aber ich hatte dadurch auch mehr Privatsspähre. \r\n' +
+          'Die beiden Frauen auf die ich dort getroffen bin, sind auch mega nette Leute, mit denen ich mich vom ersten Tag an sehr gut verstanden habe.\r\n' +
+          '\r\n' +
+          'Alles in allem habe ich eine sehr schöne Zeit gehabt und kann die Wohnung definitiv weiterempfehlen.'
+      },
+      {
+        _id: '135981722',
+        date: ISODate('2017-03-07T05:00:00.000Z'),
+        listing_id: '14758068',
+        reviewer_id: '52845096',
+        reviewer_name: 'Kai',
+        comments: 'The host canceled this reservation 41 days before arrival. This is an automated posting.'
+      }
+    ]
+  }
+]
+•	Найти город с максимальным количеством объектов.
+db.listingsAndReviews.aggregate([
+  { $group: { _id: "$address.market", count: { $sum: 1 } } },
+  { $sort: { count: -1 } },
+  { $limit: 1 }
+])
+
+[ { _id: 'Istanbul', count: 660 } ]
+•	Найти объект с наибольшим количеством отзывов и вывести его название и количество отзывов.
+db.listingsAndReviews.find(
+  {}, // выбираем все документы для фильтрации 
+  { name: 1, number_of_reviews: 1 } // плюс, поле с названием в вывод 
+).sort({ "number_of_reviews": -1 }).limit(1)
+
+[
+  {
+    _id: '4069429',
+    name: '#Private Studio - Waikiki Dream',
+    number_of_reviews: 533
+  }
+]
+
+
