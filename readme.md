@@ -62,7 +62,7 @@
 
 Запрос:
 
-```plaintext
+```
 Table Students {
   _id ObjectId
   name String
@@ -89,6 +89,7 @@ Table Courses {
 
 Ref: Students._id < Grades.student_id
 Ref: Courses._id < Grades.course_id
+```
 
 ## 4. Обоснование структуры базы данных
 
@@ -119,6 +120,395 @@ Ref: Courses._id < Grades.course_id
 ## 6. Запуск проекта (через Docker)
 
 ### 6.1 Запускаем контейнер с MongoDB
+``` docker run -d --name mongodb-new -p 28017:27017 mongo ```
+### 6.2.	Подключаемся к контейнеру
+``` docker exec -it mongodb-new bash ```
+### 6.3.	Подключаемся к MongoDB (внутри контейнера)
+``` mongosh ```
+### 6.4.	Создаем базы данных
+```
+use university
+switched to db university
+university>
+```
+MongoDB автоматически создает базу данных, если она не существует.
+### 6.5.	Создаем три коллекции: Students, Courses, и Grades
+```
+db.createCollection("Students");
+university>
+{ ok: 1 }
 
-```bash
-docker run -d --name mongodb-new -p 28017:27017 mongo
+db.createCollection("Courses");
+university>
+{ ok: 1 }
+
+db.createCollection("Grades");
+university>
+{ ok: 1 }
+ ```
+### 6.6.	Добавление тестовых данных
+#### 6.6.1.	Добавляем студентов в коллекцию Students
+``` 
+db.Students.insertMany([
+    {
+        name: "Иван",
+        surname: "Иванов",
+        group: "ГРУППА-101",
+        faculty: "Факультет информатики",
+        year_of_study: 1
+    },
+    {
+        name: "Мария",
+        surname: "Петрова",
+        group: "ГРУППА-102",
+        faculty: "Факультет математики",
+        year_of_study: 2
+    },
+    {
+        name: "Алексей",
+        surname: "Сидоров",
+        group: "ГРУППА-101",
+        faculty: "Факультет информатики",
+        year_of_study: 1
+    },
+    {
+        name: "Елена",
+        surname: "Козлова",
+        group: "ГРУППА-103",
+        faculty: "Факультет физики",
+        year_of_study: 3
+    }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67dad4a3af2a03271551e944'),
+    '1': ObjectId('67dad4a3af2a03271551e945'),
+    '2': ObjectId('67dad4a3af2a03271551e946'),
+    '3': ObjectId('67dad4a3af2a03271551e947')
+  }
+}
+```
+#### 6.6.2.	Добавляем курсы в коллекцию Courses
+```
+db.Courses.insertMany([
+    {
+        course_name: "Базы данных",
+        lecturer: "Петров П.П.",
+        credits: 5
+    },
+    {
+        course_name: "Математический анализ",
+        lecturer: "Иванова И.И.",
+        credits: 6
+    },
+    {
+        course_name: "Физика",
+        lecturer: "Сидоров С.С.",
+        credits: 4
+    },
+    {
+        course_name: "Программирование",
+        lecturer: "Козлов К.К.",
+        credits: 5
+    }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67dad4deaf2a03271551e948'),
+    '1': ObjectId('67dad4deaf2a03271551e949'),
+    '2': ObjectId('67dad4deaf2a03271551e94a'),
+    '3': ObjectId('67dad4deaf2a03271551e94b')
+  }
+}
+```
+#### 6.6.3.	Добавляем оценки в коллекцию Grades
+```
+db.Grades.insertMany([
+    {
+        student_id: ObjectId('67dad4a3af2a03271551e944'), // Студент 1
+        course_id: ObjectId('67dad4deaf2a03271551e948'),  // Курс 1
+        grade: 4,
+        date: new Date("2023-10-01")
+    },
+    {
+        student_id: ObjectId('67dad4a3af2a03271551e945'), // Студент 2
+        course_id: ObjectId('67dad4deaf2a03271551e949'),  // Курс 2
+        grade: 5,
+        date: new Date("2023-10-02")
+    },
+    {
+        student_id: ObjectId('67dad4a3af2a03271551e946'), // Студент 3
+        course_id: ObjectId('67dad4deaf2a03271551e948'),  // Курс 1
+        grade: 3,
+        date: new Date("2023-10-03")
+    },
+    {
+        student_id: ObjectId('67dad4a3af2a03271551e947'), // Студент 4
+        course_id: ObjectId('67dad4deaf2a03271551e94a'),  // Курс 3
+        grade: 5,
+        date: new Date("2023-10-04")
+    }
+]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67dad5dcaf2a03271551e94c'),
+    '1': ObjectId('67dad5dcaf2a03271551e94d'),
+    '2': ObjectId('67dad5dcaf2a03271551e94e'),
+    '3': ObjectId('67dad5dcaf2a03271551e94f')
+  }
+}
+```
+### 6.7.	Проверка данных
+#### 6.7.1.	Проверяем, что студенты добавлены
+``` db.Students.find({}); ```
+#### 6.7.2.	Проверяем, что курсы добавлены
+``` db.Courses.find({}); ```
+#### 6.7.3.	Проверяем, что оценки добавлены
+``` db.Grades.find({}); ```
+### 6.8.	Добавление индексов
+#### 6.8.1.	Добавляем индекс на student_id в коллекции Grades для быстрого поиска оценок студента
+```
+db.Grades.createIndex({ student_id: 1 });
+university>
+student_id_1
+```
+#### 6.8.2.	Добавляем индекс на course_id в коллекции Grades для быстрого поиска оценок по курсу
+```
+db.Grades.createIndex({ course_id: 1 });
+university>
+course_id_1
+```
+#### 6.8.3.	Добавляем индекс на group в коллекции Students для быстрого поиска студентов по группе
+```
+db.Students.createIndex({ group: 1 });
+university>
+group_1
+```
+## 7.	Примеры запросов
+### 7.1. Получение всех студентов из определенной группы, например, "ГРУППА-101"
+```
+db.Students.find({ group: "ГРУППА-101" });
+[
+  {
+    _id: ObjectId('67dad4a3af2a03271551e944'),
+    name: 'Иван',
+    surname: 'Иванов',
+    group: 'ГРУППА-101',
+    faculty: 'Факультет информатики',
+    year_of_study: 1
+  },
+  {
+    _id: ObjectId('67dad4a3af2a03271551e946'),
+    name: 'Алексей',
+    surname: 'Сидоров',
+    group: 'ГРУППА-101',
+    faculty: 'Факультет информатики',
+    year_of_study: 1
+  }
+]
+```
+### 7.2. Получение всех курсов, которые ведет конкретный преподаватель, например, "Петров П.П."
+```
+db.Courses.find({ lecturer: "Петров П.П." });
+[
+  {
+    _id: ObjectId('67dad4deaf2a03271551e948'),
+    course_name: 'Базы данных',
+    lecturer: 'Петров П.П.',
+    credits: 5
+  }
+]
+```
+### 7.3.	Получение всех оценок конкретного студента, например, "Иван Иванов"
+```
+const student = db.Students.findOne({ name: "Иван", surname: "Иванов" });
+db.Grades.find({ student_id: student._id });
+[
+  {
+    _id: ObjectId('67dad5dcaf2a03271551e94c'),
+    student_id: ObjectId('67dad4a3af2a03271551e944'),
+    course_id: ObjectId('67dad4deaf2a03271551e948'),
+    grade: 4,
+    date: ISODate('2023-10-01T00:00:00.000Z')
+  }
+]
+```
+### 7.4.	 Получение всех курсов, на которые записан конкретный студент, например,  "Иван Иванов"
+```
+const student = db.Students.findOne({ name: "Иван", surname: "Иванов" });
+const grades = db.Grades.find({ student_id: student._id }).toArray(); // Преобразуем курсор в массив
+const courseIds = grades.map(grade => grade.course_id); // Теперь это массив
+db.Courses.find({ _id: { $in: courseIds } }); // Ищем курсы по массиву courseIds
+[
+  {
+    _id: ObjectId('67dad4deaf2a03271551e948'),
+    course_name: 'Базы данных',
+    lecturer: 'Петров П.П.',
+    credits: 5
+  }
+]
+```
+### 7.5.	Получение среднего балла конкретного студента, например, "Иван Иванов"
+```
+const student = db.Students.findOne({ name: "Иван", surname: "Иванов" });
+db.Grades.aggregate([
+    { $match: { student_id: student._id } },
+    { $group: { _id: null, averageGrade: { $avg: "$grade" } } }
+]);
+[ { _id: null, averageGrade: 4 } ]
+```
+### 7.6.	 Получение среднего балла для всего списка студентов
+```
+db.Students.aggregate([
+    {
+        $lookup: {
+            from: "Grades",
+            localField: "_id",
+            foreignField: "student_id",
+            as: "grades"
+        }
+    },
+    {
+        $project: {
+            name: 1,
+            surname: 1,
+            averageGrade: { $avg: "$grades.grade" }
+        }
+    }
+]);
+[
+  {
+    _id: ObjectId('67dad4a3af2a03271551e944'),
+    name: 'Иван',
+    surname: 'Иванов',
+    averageGrade: 4.5
+  },
+  {
+    _id: ObjectId('67dad4a3af2a03271551e945'),
+    name: 'Мария',
+    surname: 'Петрова',
+    averageGrade: 5
+  },
+  {
+    _id: ObjectId('67dad4a3af2a03271551e946'),
+    name: 'Алексей',
+    surname: 'Сидоров',
+    averageGrade: 3
+  },
+  {
+    _id: ObjectId('67dad4a3af2a03271551e947'),
+    name: 'Елена',
+    surname: 'Козлова',
+    averageGrade: 5
+  },
+  {
+    _id: ObjectId('67dc4507af2a03271551e950'),
+    name: Светлана,
+    surname: 'Иванова',
+    averageGrade: null
+  }
+]
+```
+### 7.7.	Добавление нового студента
+```
+db.Students.insertOne({
+    name: "Светлана",
+    surname: "Иванова",
+    group: "ГРУППА-101",
+    faculty: "Факультет информатики",
+    year_of_study: 2
+});
+{
+  acknowledged: true,
+  insertedId: ObjectId('67dc4507af2a03271551e950')
+}
+```
+### 7.8.	Добавление оценки «Отлично» для студента по курсы «Базы данных»
+```
+const course = db.Courses.findOne({ course_name: "Базы данных" });
+const student = db.Students.findOne({ name: "Иван", surname: "Иванов" });
+
+db.Grades.insertOne({
+    student_id: student._id,
+    course_id: course._id,
+    grade: 5,
+    date: new Date("2023-10-01")
+});
+{
+  acknowledged: true,
+  insertedId: ObjectId('67dc4582af2a03271551e951')
+}
+```
+### 7.9.	Получение списка студентов, которые сдали курс "Базы данных" на "Отлично"
+```
+const course = db.Courses.findOne({ course_name: "Базы данных" });
+db.Grades.aggregate([
+    { $match: { course_id: course._id, grade: 5 } },
+    { $lookup: { from: "Students", localField: "student_id", foreignField: "_id", as: "student" } },
+    { $unwind: "$student" },
+    { $project: { "student.name": 1, "student.surname": 1 } }
+]);
+[
+  {
+    _id: ObjectId('67dc4582af2a03271551e951'),
+    student: { name: 'Иван', surname: 'Иванов' }
+  }
+]
+```
+### 7.10.	Получение всех студентов
+```
+db.Students.find({});
+[
+  {
+    _id: ObjectId('67dad4a3af2a03271551e944'),
+    name: 'Иван',
+    surname: 'Иванов',
+    group: 'ГРУППА-101',
+    faculty: 'Факультет информатики',
+    year_of_study: 1
+  },
+  {
+    _id: ObjectId('67dad4a3af2a03271551e945'),
+    name: 'Мария',
+    surname: 'Петрова',
+    group: 'ГРУППА-102',
+    faculty: 'Факультет математики',
+    year_of_study: 2
+  },
+  {
+    _id: ObjectId('67dad4a3af2a03271551e946'),
+    name: 'Алексей',
+    surname: 'Сидоров',
+    group: 'ГРУППА-101',
+    faculty: 'Факультет информатики',
+    year_of_study: 1
+  },
+  {
+    _id: ObjectId('67dad4a3af2a03271551e947'),
+    name: 'Елена',
+    surname: 'Козлова',
+    group: 'ГРУППА-103',
+    faculty: 'Факультет физики',
+    year_of_study: 3
+  },
+  {
+    _id: ObjectId('67dc4507af2a03271551e950'),
+    name: Светлана,
+    surname: 'Иванова',
+    group: 'ГРУППА-101',
+    faculty: 'Факультет информатики',
+    year_of_study: 2
+  }
+]
+```
+## 8.	Экспорт коллекций
+Выполняем локально (не в контейнере)
+### 8.1.	Экспортируем коллекцию Students
+``` mongoexport --uri="mongodb://localhost:28017/university" --collection=Students --out=students.json ```
+### 8.2.	Экспортируем коллекцию Courses
+``` mongoexport --uri="mongodb://localhost:28017/university" --collection=Courses --out=courses.json ```
+### 8.3.	Экспортируем коллекцию Grades
+``` mongoexport --uri="mongodb://localhost:28017/university" --collection=Grades --out=grades.json ```
