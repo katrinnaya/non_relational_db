@@ -1,0 +1,4 @@
+{"_id":{"$oid":"67dad4deaf2a03271551e948"},"course_name":"Базы данных","lecturer":"Петров П.П.","credits":5}
+{"_id":{"$oid":"67dad4deaf2a03271551e949"},"course_name":"Математический анализ","lecturer":"Иванова И.И.","credits":6}
+{"_id":{"$oid":"67dad4deaf2a03271551e94a"},"course_name":"Физика","lecturer":"Сидоров С.С.","credits":4}
+{"_id":{"$oid":"67dad4deaf2a03271551e94b"},"course_name":"Программирование","lecturer":"Козлов К.К.","credits":5}

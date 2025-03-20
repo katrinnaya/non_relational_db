@@ -1,0 +1,5 @@
+{"_id":{"$oid":"67dad4a3af2a03271551e944"},"name":"Иван","surname":"Иванов","group":"ГРУППА-101","faculty":"Факультет информатики","year_of_study":1}
+{"_id":{"$oid":"67dad4a3af2a03271551e945"},"name":"Мария","surname":"Петрова","group":"ГРУППА-102","faculty":"Факультет математики","year_of_study":2}
+{"_id":{"$oid":"67dad4a3af2a03271551e946"},"name":"Алексей","surname":"Сидоров","group":"ГРУППА-101","faculty":"Факультет информатики","year_of_study":1}
+{"_id":{"$oid":"67dad4a3af2a03271551e947"},"name":"Елена","surname":"Козлова","group":"ГРУППА-103","faculty":"Факультет физики","year_of_study":3}
+{"_id":{"$oid":"67dc4507af2a03271551e950"},"name":"Иван","surname":"Иванов","group":"ГРУППА-101","faculty":"Факультет информатики","year_of_study":1}

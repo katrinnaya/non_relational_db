@@ -1,0 +1,5 @@
+{"_id":{"$oid":"67dad5dcaf2a03271551e94c"},"student_id":{"$oid":"67dad4a3af2a03271551e944"},"course_id":{"$oid":"67dad4deaf2a03271551e948"},"grade":4,"date":{"$date":"2023-10-01T00:00:00Z"}}
+{"_id":{"$oid":"67dad5dcaf2a03271551e94d"},"student_id":{"$oid":"67dad4a3af2a03271551e945"},"course_id":{"$oid":"67dad4deaf2a03271551e949"},"grade":5,"date":{"$date":"2023-10-02T00:00:00Z"}}
+{"_id":{"$oid":"67dad5dcaf2a03271551e94e"},"student_id":{"$oid":"67dad4a3af2a03271551e946"},"course_id":{"$oid":"67dad4deaf2a03271551e948"},"grade":3,"date":{"$date":"2023-10-03T00:00:00Z"}}
+{"_id":{"$oid":"67dad5dcaf2a03271551e94f"},"student_id":{"$oid":"67dad4a3af2a03271551e947"},"course_id":{"$oid":"67dad4deaf2a03271551e94a"},"grade":5,"date":{"$date":"2023-10-04T00:00:00Z"}}
+{"_id":{"$oid":"67dc4582af2a03271551e951"},"student_id":{"$oid":"67dad4a3af2a03271551e944"},"course_id":{"$oid":"67dad4deaf2a03271551e948"},"grade":5,"date":{"$date":"2023-10-01T00:00:00Z"}}
